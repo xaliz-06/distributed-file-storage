@@ -111,9 +111,9 @@ func (t *TCPTransport) handleConn(conn net.Conn) {
 		// 	fmt.Printf("TCP Error: %s\n", err)
 		// }
 
-		if err := t.Decoder.Decode(conn, &msg); err != nil {
-			fmt.Printf("TCP error %s\n", err)
-			continue
+		err := t.Decoder.Decode(conn, &msg)
+		if err != nil {
+			return
 		}
 
 		msg.From = conn.RemoteAddr()
